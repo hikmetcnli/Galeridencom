@@ -7,7 +7,15 @@ namespace Galeriden_com.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+
+            var MusteriListesi = new List<Musteri>
+               {
+                new Musteri { Id = 1, Adi = "HİKMET", Soyadi = "CANLI", Adres="ORDU", Telefon="5367848888"},
+                new Musteri {Id = 2, Adi="GİZEM",Soyadi = "KORKMAZ",Adres="İSTANBUL",Telefon="99999999999"},
+                new Musteri {Id = 3, Adi="İREM", Soyadi="BAYRAKTAR",Adres="RİZE",Telefon="8888888"}
+                };
+
+            return View(MusteriListesi);
         }
 
         [HttpGet]
@@ -17,7 +25,7 @@ namespace Galeriden_com.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Musteri musteri_ )
+        public IActionResult Create(Musteri musteri_)
         {
             return RedirectToAction("Index", "Musteri");
         }
