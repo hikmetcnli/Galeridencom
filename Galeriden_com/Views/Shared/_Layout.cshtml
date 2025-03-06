@@ -10,10 +10,9 @@
           type="image/x-icon" />
 
     <!-- Fonts and icons -->
-    <script src="~/assets/js/plugin/webfont/webfont.min.js"></script>
-    <link href="~/assets/css/fonts.min.css" rel="stylesheet" />
+    <script src="~/assets/js/plugin/webfont/webfont.min.js"></script> 
     <link href="~/assets/css/fonts.css" rel="stylesheet" />
-    <sc@* ript>
+    <@* script>
         WebFont.load({
             google: { families: ["Public Sans:300,400,500,600,700"] },
             custom: {
@@ -29,7 +28,7 @@
                 sessionStorage.fonts = true;
             },
         });
-    </script> *@
+    </script>   *@
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="~/assets/css/bootstrap.min.css" />
@@ -49,7 +48,7 @@
             @RenderBody()
         </div>
 
-        @Html.Partial("Footer")
+        @* @Html.Partial("Footer") *@
 
     </div>
 
