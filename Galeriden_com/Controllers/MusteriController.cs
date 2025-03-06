@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Galeriden_com.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Galeriden_com.Controllers
 {
@@ -7,6 +8,18 @@ namespace Galeriden_com.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Musteri musteri_ )
+        {
+            return RedirectToAction("Index", "Musteri");
         }
     }
 }
