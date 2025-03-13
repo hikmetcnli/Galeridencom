@@ -1,5 +1,6 @@
 ﻿using Galeriden_com.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Galeriden_com.Controllers
 {
@@ -20,14 +21,44 @@ namespace Galeriden_com.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
+        public IActionResult Create(int ID) 
+        { 
+
+            if (ID > 0) //güncelleme yapılacak kayıt varsa
+            {
+                var musteri = c.Musteri.Where(x=> x.Id== ID).FirstOrDefault();
+                return View(musteri);
+            }
+            else //yeni kayıt varsa
+            {
+                return View();
+            }
+            
         }
+         
 
         [HttpPost]
         public IActionResult Create(Musteri musteri_)
         {
+            if (musteri_.Id == 0) //YERNİ KAYIT EKLE
+            {
+                c.Musteri.Add(musteri_);
+                c.SaveChanges();
+            }
+            else
+            {
+                var musteri = c.Musteri.Find(musteri_.Id);
+               
+                musteri.Adi = musteri_.Adi;
+                musteri.Soyadi = musteri_.Soyadi;
+                musteri.Adres = musteri_.Adres;
+                musteri.Telefon = musteri_.Telefon;
+                c.SaveChanges();
+
+
+            }
+           
+
             return RedirectToAction("Index", "Musteri");
         }
     }
