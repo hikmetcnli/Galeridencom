@@ -32,10 +32,8 @@ namespace Galeriden_com.Controllers
             else //yeni kayıt varsa
             {
                 return View();
-            }
-            
-        }
-         
+            }            
+        }         
 
         [HttpPost]
         public IActionResult Create(Musteri musteri_)
@@ -61,5 +59,22 @@ namespace Galeriden_com.Controllers
 
             return RedirectToAction("Index", "Musteri");
         }
+
+
+        [HttpGet]
+        public IActionResult Delete(int ID)
+        {
+            //var musteri = c.Musteri.Find(ID);
+            var musteri = c.Musteri.Where(x=> x.Id ==ID).FirstOrDefault();
+
+            if (musteri != null)
+            {
+                c.Musteri.Remove(musteri);
+                c.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Musteri");
+        }
+
     }
 }
