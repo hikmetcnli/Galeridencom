@@ -5,15 +5,16 @@ namespace Galeriden_com.Controllers
 {
     public class MusteriController : Controller
     {
+        Context c = new Context();
         public IActionResult Index()
-        {
-
-            var MusteriListesi = new List<Musteri>
-               {
-                new Musteri { Id = 1, Adi = "HİKMET", Soyadi = "CANLI", Adres="ORDU", Telefon="5367848888"},
-                new Musteri {Id = 2, Adi="GİZEM",Soyadi = "KORKMAZ",Adres="İSTANBUL",Telefon="99999999999"},
-                new Musteri {Id = 3, Adi="İREM", Soyadi="BAYRAKTAR",Adres="RİZE",Telefon="8888888"}
-                };
+        {           
+            var MusteriListesi = c.Musteri.ToList();
+            //var MusteriListesi = new List<Musteri>
+            //   {
+            //    new Musteri { Id = 1, Adi = "HİKMET", Soyadi = "CANLI", Adres="ORDU", Telefon="5367848888"},
+            //    new Musteri {Id = 2, Adi="GİZEM",Soyadi = "KORKMAZ",Adres="İSTANBUL",Telefon="99999999999"},
+            //    new Musteri {Id = 3, Adi="İREM", Soyadi="BAYRAKTAR",Adres="RİZE",Telefon="8888888"}
+            //    };
 
             return View(MusteriListesi);
         }
