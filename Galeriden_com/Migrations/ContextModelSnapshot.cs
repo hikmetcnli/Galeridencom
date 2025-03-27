@@ -109,29 +109,23 @@ namespace Galeriden_com.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AID")
-                        .HasColumnType("int");
-
                     b.Property<double>("AlimFiyati")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("AlimFiyatiDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MID")
+                    b.Property<int>("AracID")
                         .HasColumnType("int");
 
-                    b.Property<int>("aracId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("musteriId")
+                    b.Property<int>("MusteriID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("aracId");
+                    b.HasIndex("AracID");
 
-                    b.HasIndex("musteriId");
+                    b.HasIndex("MusteriID");
 
                     b.ToTable("SatinAlma");
                 });
@@ -140,13 +134,13 @@ namespace Galeriden_com.Migrations
                 {
                     b.HasOne("Galeriden_com.Models.Arac", "arac")
                         .WithMany()
-                        .HasForeignKey("aracId")
+                        .HasForeignKey("AracID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Galeriden_com.Models.Musteri", "musteri")
                         .WithMany()
-                        .HasForeignKey("musteriId")
+                        .HasForeignKey("MusteriID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

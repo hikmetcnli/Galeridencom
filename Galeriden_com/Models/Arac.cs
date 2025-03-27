@@ -18,5 +18,6 @@ namespace Galeriden_com.Models
 
         public double Fiyat { get; set; }
 
+        public ICollection<SatinAlma> SatinAlma { get; set; }
     }
 }

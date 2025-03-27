@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Galeriden_com.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250320123043_SatinAlma")]
-    partial class SatinAlma
+    [Migration("20250327092338_db")]
+    partial class db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

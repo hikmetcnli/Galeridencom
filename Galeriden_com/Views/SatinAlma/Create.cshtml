@@ -1,0 +1,56 @@
+﻿@using Galeriden_com.Models
+
+@model SatinAlma
+
+<style>
+    .TextColor {
+        color: red;
+    }
+</style>
+
+@using (@Html.BeginForm("Create", "SatinAlma", FormMethod.Post))
+{
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-center">Satın Alma Bilgileri</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Id, new { @class = "form-label" })
+                            @Html.TextBoxFor(Model => Model.Id, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.musteri.Id, "Tedarikçi Adı", new { @class = "form-label" })                          
+                            @Html.DropDownListFor(Model => Model.musteri.Id,
+                                     new SelectList(ViewBag.musteriListesi, "Value", "Text", Model?.musteri?.Id)
+                                     , "Terdarikçi Seçiniz",  new { @class = "form-control" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.arac.Id, "Araç Marjası", new { @class = "form-label" })
+                            @Html.DropDownListFor(Model => Model.arac.Id,
+                                     new SelectList(ViewBag.aracListesi, "Value", "Text", Model?.arac?.Id)
+                                     , "Araç Seçiniz", new { @class = "form-control" })
+
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.AlimFiyati,"Fiyat", new { @class = "form-label" })
+                            @Html.TextBoxFor(Model => Model.AlimFiyati, new { @class = "form-control" })
+                        </div>
+
+                        
+
+                        <button type="submit" class="btn btn-primary btn-block">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
