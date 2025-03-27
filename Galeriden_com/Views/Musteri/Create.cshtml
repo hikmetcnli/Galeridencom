@@ -17,6 +17,12 @@
                             @Html.TextBoxFor(Model => Model.Id, new { @class = "form-control" })
                         </div>
 
+                        @Html.LabelFor(Model => Model.Id, "Tedarikçi", new { @class = "form-label" })
+                        @Html.RadioButtonFor(model => model.Type, "Tedarikçi", new { @id = "male", @class = "gender-radio" })
+                        @Html.LabelFor(Model => Model.Id, "Müşteri", new { @class = "form-label" })
+                        @Html.RadioButtonFor(model => model.Type, "Müşteri", new { @id = "female", @class = "gender-radio" })
+
+
                         <div class="form-group">
                             @Html.LabelFor(Model => Model.Adi, new { @class = "form-label" })
                             @Html.TextBoxFor(Model => Model.Adi, new { @class = "form-control" })

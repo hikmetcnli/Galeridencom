@@ -21,9 +21,8 @@ namespace Galeriden_com.Controllers
             var musteriListesi = new List<SelectListItem>();
             var aracListesi = new List<SelectListItem>();
 
-            foreach (var item in c.Musteri.ToList())
-            {
-
+            foreach (var item in c.Musteri.Where(x=> x.Type=="Tedarikçi").ToList())
+            { 
                 musteriListesi.Add(new SelectListItem
                 {
                     Value = item.Id.ToString(),

@@ -4,6 +4,7 @@ using Galeriden_com.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Galeriden_com.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20250327120800_db3")]
+    partial class db3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,35 +136,6 @@ namespace Galeriden_com.Migrations
                     b.ToTable("SatinAlma");
                 });
 
-            modelBuilder.Entity("Galeriden_com.Models.Satis", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AracID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MusteriID")
-                        .HasColumnType("int");
-
-                    b.Property<double>("SatisFiyati")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("SatisFiyatiDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AracID");
-
-                    b.HasIndex("MusteriID");
-
-                    b.ToTable("Satis");
-                });
-
             modelBuilder.Entity("Galeriden_com.Models.SatinAlma", b =>
                 {
                     b.HasOne("Galeriden_com.Models.Arac", "arac")
@@ -172,25 +146,6 @@ namespace Galeriden_com.Migrations
 
                     b.HasOne("Galeriden_com.Models.Musteri", "musteri")
                         .WithMany("SatinAlma")
-                        .HasForeignKey("MusteriID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("arac");
-
-                    b.Navigation("musteri");
-                });
-
-            modelBuilder.Entity("Galeriden_com.Models.Satis", b =>
-                {
-                    b.HasOne("Galeriden_com.Models.Arac", "arac")
-                        .WithMany()
-                        .HasForeignKey("AracID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Galeriden_com.Models.Musteri", "musteri")
-                        .WithMany()
                         .HasForeignKey("MusteriID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

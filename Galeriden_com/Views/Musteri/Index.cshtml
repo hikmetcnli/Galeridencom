@@ -2,7 +2,7 @@
 
 @model List<Musteri>
 
-<h1>Müşteri İşlemleri</h1>
+<h1>Firma İşlemleri</h1>
 
 
 <hr />
@@ -13,10 +13,10 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-center">
-                <h4 class="card-title">Müşteri Düzenle</h4>
+                <h4 class="card-title">Firma Düzenle</h4>
                 <a href="../Musteri/Create" class="btn btn-primary btn-round ms-auto" >
                     <i class="fa fa-plus"></i>
-                    Yeni Müşteri
+                    Yeni Firma
                 </a>
             </div>
         </div>
@@ -26,19 +26,21 @@
                        class="display table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>Müşteri Adı</th>
-                            <th>Müşteri Soyadı</th>
+                            <th>Firma Adı</th>
+                            <th>Firma Soyadı</th>
                             <th>Adresi</th>
                             <th>Telefonu</th>
+                            <th>Firma Tipi</th>
                             <th style="width: 10%">İşlem</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Müşteri Adı</th>
-                            <th>Müşteri Soyadı</th>
+                            <th>Firma Adı</th>
+                            <th>Firma Soyadı</th>
                             <th>Adresi</th>
                             <th>Telefonu</th>
+                            <th>Firma Tipi</th>
                             <th>İşlem</th>
                         </tr>
                     </tfoot>
@@ -50,6 +52,7 @@
                                 <td>@item.Soyadi </td>
                                 <td>@item.Adres </td>
                                 <td>@item.Telefon </td>
+                                <td>@item.Type </td>
                                 <td>
                                     <div class="form-button-action">
                                         <a href="../Musteri/Create?ID=@item.Id" class="btn btn-link btn-primary btn-lg" >

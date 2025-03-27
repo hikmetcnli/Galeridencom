@@ -51,6 +51,7 @@ namespace Galeriden_com.Controllers
                 musteri.Soyadi = musteri_.Soyadi;
                 musteri.Adres = musteri_.Adres;
                 musteri.Telefon = musteri_.Telefon;
+                musteri.Type = musteri_.Type;   
                 c.SaveChanges();
 
 
