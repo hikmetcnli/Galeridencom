@@ -2,7 +2,7 @@
 
 @model Musteri
 
-@using (@Html.BeginForm("Create", "Musteri", FormMethod.Post))
+@using (@Html.BeginForm("Create", "Musteri", FormMethod.Post,new { enctype = "multipart/form-data" }))
 {
     <div class="container mt-5">
         <div class="row">
@@ -41,6 +41,11 @@
                         <div class="form-group">
                             @Html.LabelFor(Model => Model.Telefon, new { @class = "form-label" })
                             @Html.TextBoxFor(Model => Model.Telefon, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.ResimYolu,"Müşteri Resmi", new { @class = "form-label" })
+                            <input type="file" id="ResimYolu" name="ResimYolu" class="form-control" />
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block">Kaydet</button>

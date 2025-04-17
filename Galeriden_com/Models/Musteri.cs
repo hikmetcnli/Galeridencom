@@ -11,6 +11,7 @@ namespace Galeriden_com.Models
         public string? Adres { get; set; }
         public string? Telefon { get; set; }
         public string? Type { get; set; }
+        public string? ResimYolu { get; set; }
         public ICollection<SatinAlma> SatinAlma { get; set; }
     }
 }

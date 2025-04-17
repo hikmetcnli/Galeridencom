@@ -31,6 +31,7 @@
                             <th>Adresi</th>
                             <th>Telefonu</th>
                             <th>Firma Tipi</th>
+                            <th>Firma Logo</th>
                             <th style="width: 10%">İşlem</th>
                         </tr>
                     </thead>
@@ -41,6 +42,7 @@
                             <th>Adresi</th>
                             <th>Telefonu</th>
                             <th>Firma Tipi</th>
+                            <th>Firma Logo</th>
                             <th>İşlem</th>
                         </tr>
                     </tfoot>
@@ -53,6 +55,10 @@
                                 <td>@item.Adres </td>
                                 <td>@item.Telefon </td>
                                 <td>@item.Type </td>
+                                <td>
+                                    <img src="~/musteriresimleri/@item.ResimYolu" style="height:50px; width:auto" />
+                                    
+                                    </td>
                                 <td>
                                     <div class="form-button-action">
                                         <a href="../Musteri/Create?ID=@item.Id" class="btn btn-link btn-primary btn-lg" >

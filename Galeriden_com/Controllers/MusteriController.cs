@@ -1,4 +1,5 @@
 ﻿using Galeriden_com.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,8 +37,27 @@ namespace Galeriden_com.Controllers
         }         
 
         [HttpPost]
-        public IActionResult Create(Musteri musteri_)
+        public IActionResult Create(Musteri musteri_, IFormFile ResimYolu)
         {
+            if (ResimYolu != null && ResimYolu.Length > 0)
+            {
+                string dosyaAdi = Path.GetFileName(ResimYolu.FileName);
+
+                string dosyayolu = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot", "musteriresimleri", dosyaAdi);
+
+
+                using (var FileStream = new FileStream(dosyayolu, FileMode.Create))
+                {
+                    ResimYolu.CopyTo(FileStream);
+                }
+
+                //musteri_.ResimYolu = "/musteriresimleri/"+ dosyaAdi;
+                musteri_.ResimYolu = dosyaAdi;
+
+            }
+
+
+
             if (musteri_.Id == 0) //YERNİ KAYIT EKLE
             {
                 c.Musteri.Add(musteri_);
@@ -51,7 +71,9 @@ namespace Galeriden_com.Controllers
                 musteri.Soyadi = musteri_.Soyadi;
                 musteri.Adres = musteri_.Adres;
                 musteri.Telefon = musteri_.Telefon;
-                musteri.Type = musteri_.Type;   
+                musteri.Type = musteri_.Type;
+                musteri.ResimYolu = musteri_.ResimYolu;
+
                 c.SaveChanges();
 
 
