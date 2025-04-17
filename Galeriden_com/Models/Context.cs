@@ -14,5 +14,6 @@ namespace Galeriden_com.Models
         public DbSet<Arac> Arac { get; set; }
         public DbSet<SatinAlma> SatinAlma { get; set; }
         public DbSet<Satis> Satis { get; set; }
+        public DbSet<User> User { get; set; }
     }
 }

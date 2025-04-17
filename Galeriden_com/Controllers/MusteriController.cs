@@ -1,13 +1,16 @@
 ﻿using Galeriden_com.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Galeriden_com.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class MusteriController : Controller
     {
-        Context c = new Context();
+
+        Context c = new Context();     
         public IActionResult Index()
         {           
             var MusteriListesi = c.Musteri.ToList();
