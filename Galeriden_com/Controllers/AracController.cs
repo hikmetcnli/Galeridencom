@@ -1,8 +1,10 @@
 ﻿using Galeriden_com.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Galeriden_com.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AracController : Controller
     {
         Context c = new Context();
