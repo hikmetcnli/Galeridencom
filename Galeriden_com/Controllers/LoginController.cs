@@ -37,7 +37,7 @@ namespace Galeriden_com.Controllers
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimidentity), claimProperties);
 
 
-                return RedirectToAction("Index", "Musteri");
+                return RedirectToAction("Index", "Home");
             }
             else
             {

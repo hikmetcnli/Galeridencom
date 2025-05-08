@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<div class="container">
     <div class="page-inner">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
             <div>
@@ -19,7 +21,7 @@
                             </div>
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
-                                    <p class="card-category">Firmalar</p>
+                                    <p class="card-category">Firmalar <strong>T:</strong> @ViewBag.TedarikciSayisi/<strong>M:</strong> @ViewBag.MusteriSayisi </p>
                                     <h4 class="card-title"> @ViewBag.FirmaSayisi (Adet) </h4>
                                 </div>
                             </div>
@@ -85,5 +87,43 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <canvas id="AylikSatisGrafik" style="width:100%;max-width:600px"></canvas>
+
+            </div>
+            <div class="col-lg-12"></div>
+        </div>
 </div>
 </div>
+
+@{
+
+    var Aylar = ViewBag.XValue as List<string>;
+    var AyValue = ViewBag.yValue as List<double>;
+
+}
+
+<script>
+    var xValues = @Html.Raw(Json.Serialize(Aylar)) ; /* ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs"];*/
+    var yValues = @Html.Raw(Json.Serialize(AyValue)) ;
+    var barColors = ["red", "green", "blue", "orange", "brown"];
+
+    new Chart("AylikSatisGrafik", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: "Aylık Satış Raporu (TL)"
+            }
+        }
+    });
+</script>
