@@ -1,6 +1,7 @@
 ﻿using Galeriden_com.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Galeriden_com.Controllers
 {
@@ -30,6 +31,7 @@ namespace Galeriden_com.Controllers
             ViewBag.TedarikciSayisi = TedarikciSayisi;
             /* var MusteriSayisi2 = c.Musteri.Count(x => x.Type == "Müşteri");*/
 
+            /*AYLIK SATIŞ RAPORU*/
             var AylikSatisData = c.Satis.
                     GroupBy(x=> new { x.SatisFiyatiDate.Year,x.SatisFiyatiDate.Month }).
                     Select(s=> new
@@ -41,20 +43,43 @@ namespace Galeriden_com.Controllers
 
             List<string> xValue = new List<string>();
             List<double> yValue = new List<double>();
-
             foreach(var x in AylikSatisData)
             {
                 xValue.Add(x.AyYil.ToString());
                 yValue.Add(x.ToplamFiyat);
             }
-
-
             ViewBag.XValue = xValue;
             ViewBag.yValue = yValue;
 
+            /*AYLIK SATIN ALMA RAPORU*/
+            var AylikSatinAlmaData = c.SatinAlma.
+                            GroupBy(x => new { x.AlimFiyatiDate.Year, x.AlimFiyatiDate.Month }).
+                            Select(s => new
+                            {
+                                AyYil = s.Key.Year.ToString() + "/" + s.Key.Month.ToString(),
+                                ToplamFiyat = s.Sum(x => x.AlimFiyati)
+
+                            }).ToList();
+            List<string> MonthLabel = new List<string>();
+            List<double> MonthValue = new List<double>();
+
+            foreach (var x in AylikSatinAlmaData)
+            {
+                MonthLabel.Add(x.AyYil.ToString());
+                MonthValue.Add(x.ToplamFiyat);
+            }
+            ViewBag.MonthLabel = MonthLabel;
+            ViewBag.MonthValue = MonthValue;
 
 
-            return View();
+            var last3Satis = c.Satis.
+                            Include("musteri").
+                            Include("arac").                           
+                            OrderByDescending(x=> x.SatisFiyatiDate).
+                            Take(3).ToList();
+             
+
+            return View(last3Satis);
         }
     }
 }

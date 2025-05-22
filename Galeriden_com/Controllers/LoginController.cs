@@ -45,13 +45,47 @@ namespace Galeriden_com.Controllers
             } 
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Index", "Login");
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(User user,string RePassword)
+        { 
+            if (user.Password == RePassword)
+            {
+                if (  c.User.Where(x=> x.Email == user.Email).Count() == 0)
+                {
+                    user.Role = "Admin";
+
+                    c.User.Add(user);
+                    c.SaveChanges();
+
+                    return RedirectToAction("Index", "Login");
+                }
+                else
+                {
+                    ViewBag.Message = "Bu E-mail adresi kullanılıyor.";
+                    return View();
+                }               
+            }
+            else
+            {
+                ViewBag.Message = "Şifreler Eşleşmiyor.";
+                return View();
+            } 
+
+            
         }
 
 

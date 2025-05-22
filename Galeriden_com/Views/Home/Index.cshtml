@@ -1,4 +1,9 @@
-﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+﻿@using Galeriden_com.Models
+
+@model List<Satis>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 <div class="container">
     <div class="page-inner">
@@ -7,7 +12,7 @@
                 <h3 class="fw-bold mb-3">Dashboard</h3>
                 <h6 class="op-7 mb-2">Galeriden.com İstatistikleri</h6>
             </div>
-            
+
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-3">
@@ -79,7 +84,7 @@
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
                                     <p class="card-category">Toplam Satış (TL)</p>
-                                    <h4 class="card-title"> @Convert.ToDouble(  @ViewBag.ToplamSatisFiyati).ToString("N2") (TL)</h4>
+                                    <h4 class="card-title"> @Convert.ToDouble(@ViewBag.ToplamSatisFiyati).ToString("N2") (TL)</h4>
                                 </div>
                             </div>
                         </div>
@@ -88,19 +93,82 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
-                <canvas id="AylikSatisGrafik" style="width:100%;max-width:600px"></canvas>
+            <div class="col-lg-6">
+                <canvas id="AylikSatisGrafik" style="width:100%;"></canvas>
 
             </div>
-            <div class="col-lg-12"></div>
+            <div class="col-lg-6">
+                <canvas id="AylikSatinAlmaGrafik" style="width:100%;"></canvas>
+            </div>
         </div>
-</div>
+        <div class="row">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="add-row"
+                           class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Müşteri Ad-Soyad</th>
+                                <th>Müşteri Adres</th>
+                                <th>Araç Markası</th>
+                                <th>Araç Modeli</th>
+                                <th>Satış Fiyatı</th>
+                                <th>Satış Tarihi</th>
+                                <th style="width: 10%">İşlem</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Müşteri Ad-Soyad</th>
+                                <th>Müşteri Adres</th>
+                                <th>Araç Markası</th>
+                                <th>Araç Modeli</th>
+                                <th>Satış Fiyatı</th>
+                                <th>Satış Tarihi</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.musteri.Adi @item.musteri.Soyadi</td>
+                                    <td>@item.musteri.Adres </td>
+                                    <td>@item.arac.Marka </td>
+                                    <td>@item.arac.Model </td>
+                                    <td>@item.SatisFiyati </td>
+                                    <td>@item.SatisFiyatiDate </td>
+                                    <td>
+                                        <div class="form-button-action">
+                                            <a href="../Satis/Create?ID=@item.Id" class="btn btn-link btn-primary btn-lg">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="../Satis/Delete?ID=@item.Id" class="btn btn-link btn-danger">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 </div>
 
 @{
 
     var Aylar = ViewBag.XValue as List<string>;
     var AyValue = ViewBag.yValue as List<double>;
+
+    var MonthLabel = ViewBag.MonthLabel as List<string>;
+    var MonthValue = ViewBag.MonthValue as List<double>;
 
 }
 
@@ -123,6 +191,29 @@
             title: {
                 display: true,
                 text: "Aylık Satış Raporu (TL)"
+            }
+        }
+    });
+</script>
+<script>
+    var xValues = @Html.Raw(Json.Serialize(MonthLabel)) ; /* ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs"];*/
+    var yValues = @Html.Raw(Json.Serialize(MonthValue)) ;
+    var barColors = ["red", "green", "blue", "orange", "brown"];
+
+    new Chart("AylikSatinAlmaGrafik", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: "Aylık SatınAlma Raporu (TL)"
             }
         }
     });
